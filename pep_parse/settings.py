@@ -18,7 +18,7 @@ DATETIME_FORMAT = '%Y-%m-%d_%H-%M-%S'
 FILE_FORMAT = 'csv'
 
 SUMMARY_NAME = 'status_summary'
-SUMMARY_TABLE_HEADER = ('Status', 'Quantity')
+SUMMARY_TABLE_HEADER = ['Status', 'Quantity']
 SUMMARY_TABLE_BOTTOM = 'Total'
 
 PEP_NAME = 'pep'
