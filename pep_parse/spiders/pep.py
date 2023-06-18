@@ -23,8 +23,6 @@ class PepSpider(scrapy.Spider):
             r'PEP\s(?P<number>\d+)\W+(?P<name>.+)$',
             title
         ).groups()
-        print(response.css(
-                    'dt:contains("Status") + dd'))
         yield PepParseItem(
             {
                 'number': number,
