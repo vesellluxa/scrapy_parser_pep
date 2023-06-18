@@ -1,4 +1,6 @@
 import csv
+import os
+
 from collections import Counter
 from datetime import datetime as dt
 
@@ -12,19 +14,17 @@ TIME_FORMAT = '%Y-%m-%d_%H-%M-%S'
 
 class PepParsePipeline:
     def open_spider(self, spider):
-        self.total = Counter()
-        self.time = dt.now().strftime(TIME_FORMAT)
+        self.statuses_count = Counter()
 
     def process_item(self, item, spider):
-        self.total[item['status']] += 1
+        self.statuses_count[item['status']] += 1
         return item
 
     def close_spider(self, spider):
-        with csv.writer(
-            open(
-                BASE_DIR / RESULTS / FILENAME.format(self.time),
+        file_path = BASE_DIR / RESULTS / FILENAME.format(dt.now().strftime(TIME_FORMAT))
+        os.makedirs(os.path.dirname(file_path), exist_ok=True)
+        with open(
+                file_path,
                 'w'
-            )
         ) as file:
-            file.writerow(SUMMARY_TABLE_HEADER, self.total.items())
-            self.total[SUMMARY_TABLE_BOTTOM] = sum(self.total.values())
+            csv.writer(file).writerows([*[SUMMARY_TABLE_HEADER, *self.statuses_count.items()]])
