@@ -1,5 +1,3 @@
-import os
-
 from pathlib import Path
 
 BOT_NAME = 'pep_parse'
@@ -35,6 +33,3 @@ FEEDS = {
 ITEM_PIPELINES = {
     'pep_parse.pipelines.PepParsePipeline': 300,
 }
-
-
-os.makedirs(os.path.dirname(BASE_DIR / RESULTS), exist_ok=True)
